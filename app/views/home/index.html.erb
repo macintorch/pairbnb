@@ -1,0 +1,14 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<div id="status">
+</div>
+	
+<% if signed_in? %>
+  <p> Hi! <%= current_user.email %></p>
+  <%= button_to "Sign out", sign_out_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign in", sign_in_path %>
+  <a href="/auth/facebook"> Facebook Login</a>
+<% end %>
+<ul>

@@ -4,11 +4,6 @@
 <div id="status">
 </div>
 	
-<% if signed_in? %>
-  <p> Hi! <%= current_user.email %></p>
-  <%= button_to "Sign out", sign_out_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign in", sign_in_path %>
-  <a href="/auth/facebook"> Facebook Login</a>
-<% end %>
-<ul>
+
+
+<a href="/auth/facebook"> Facebook Login</a>

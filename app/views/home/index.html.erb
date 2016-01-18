@@ -6,6 +6,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Price</th>
+      <th>Images</th>
       <th>Posted by</th>
       <th colspan="3"></th>
     </tr>
@@ -17,6 +18,11 @@
         <td><%= listing.title %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price %></td>
+        <td><%if listing.images? %>
+            <% listing.images.each do |image| %>
+              <%= image_tag(image.url) %>
+            <% end%>
+          <% end%></td>
         <td><%= listing.user.email %></td>
       </tr>
     <% end %>

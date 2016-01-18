@@ -1,3 +1,4 @@
+require 'carrierwave/orm/activerecord'
 class User < ActiveRecord::Base
 	has_many :listings, dependent: :destroy
   include Clearance::User

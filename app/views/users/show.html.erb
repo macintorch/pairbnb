@@ -2,7 +2,7 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @listing.title %>
+  <%= @user.title %>
 </p>
 
 <p>
@@ -13,15 +13,6 @@
 <p>
   <strong>Price:</strong>
   <%= @listing.price %>
-</p>
-
-<p>
-  <strong>Images:</strong>
-  <%if @listing.images? %>
-          <% @listing.images.each do |image| %>
-            <%= image_tag(image.url) %>
-          <% end%>
-        <% end%>
 </p>
 
 <p>

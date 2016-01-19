@@ -1,6 +1,7 @@
 require 'carrierwave/orm/activerecord'
 class User < ActiveRecord::Base
 	has_many :listings, dependent: :destroy
+	has_many :bookings, dependent: :destroy
   include Clearance::User
 
   def self.create_with_omniauth(auth)

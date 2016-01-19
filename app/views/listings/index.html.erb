@@ -2,7 +2,10 @@
 
 <h1>Listings of <%= current_user.email %></h1>
 
-<table class="table table-stripped">
+
+<button type="button" class="btn btn-default"><%= link_to 'New Listing', new_listing_path %></button>
+
+<table class="table table-stripped" style="width:100%">
   <thead>
     <tr>
       <th>Title</th>
@@ -17,13 +20,13 @@
   <tbody>
     <% @listings.each do |listing| %>
       <tr>
-        <td><%= listing.title %></td>
+        <td ><%= listing.title %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price %></td>
         <td><%= listing.user.email %></td>
         <td><%if listing.images? %>
             <% listing.images.each do |image| %>
-              <%= image_tag(image.url) %>
+              <%= image_tag(image.url,width: "50%") %>
             <% end%>
           <% end%>
         </td>
@@ -36,5 +39,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Listing', new_listing_path %>

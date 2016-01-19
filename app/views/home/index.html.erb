@@ -20,10 +20,11 @@
         <td><%= listing.price %></td>
         <td><%if listing.images? %>
             <% listing.images.each do |image| %>
-              <%= image_tag(image.url) %>
+              <%= image_tag(image.url, width: "100%") %>
             <% end%>
           <% end%></td>
         <td><%= listing.user.email %></td>
+        <td><%= link_to 'Book!', new_listing_booking_path(listing) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -33,5 +34,4 @@
 </div>
 	
 
-
-<a href="/auth/facebook"> Facebook Login</a>
+<!-- <a href="/auth/facebook"> Facebook Login</a> -->

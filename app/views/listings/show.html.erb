@@ -19,7 +19,7 @@
   <strong>Images:</strong>
   <%if @listing.images? %>
           <% @listing.images.each do |image| %>
-            <%= image_tag(image.url) %>
+            <%= image_tag(image.url, width:"50%") %>
           <% end%>
         <% end%>
 </p>

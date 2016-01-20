@@ -32,6 +32,9 @@
       <ul class="nav navbar-nav navbar-right">
       <% if signed_in? %>
        <li><button type="button" class="btn btn-default navbar-btn">Hi! <%= current_user.email %></button></li>
+       <li><a href="<%= users_path(current_user)%>"> Profile Index</a></li>
+       <li><%= link_to "Profile", user_path(current_user) %></li>
+       <li><a href="<%= user_path(current_user)%>"> Your Profile</a></li>
        <li><a href="/listings"> Your Listings</a></li>
        <li><a href="/listings"> Your Bookings</a></li>
         <li><%= link_to "Sign Out", sign_out_path, method: :delete %></li>

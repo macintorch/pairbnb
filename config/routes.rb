@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-resources :users
+  resources :users do
+  resources :bookings
+  end
+  
   resources :listings do
 
   resources :bookings

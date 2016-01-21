@@ -2,8 +2,11 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
 def index
-    @bookings = Booking.where(user_id: current_user.id)
+  # byebug
+  @bookings = Booking.where(user_id: current_user.id)
+
   end
+  
    def show
   end
 
@@ -13,14 +16,15 @@ def index
   end
   
   def edit
+    @booking = Booking.find(params[:id])
+    @listing = Listing.find(params[:listing_id])
   end
 
   def create
     @listing = Listing.find(params[:listing_id])
-    @booking = @listing.bookings.new(booking_params)
-
-    
-    
+    @booking = @listing.bookings.new(booking_params) #storing listing_id into
+    @booking.user_id = current_user.id #booking made by current user
+    byebug
     respond_to do |format|
       if @booking.save
         format.html { redirect_to listing_bookings_path, notice: 'Booking was successfully created.'}
@@ -36,7 +40,7 @@ def index
   def update
     respond_to do |format|
       if @booking.update(booking_params)
-        format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
+        format.html { redirect_to listing_bookings_path, notice: 'Booking was successfully updated.' }
         format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit }
@@ -51,7 +55,7 @@ def index
   def destroy
     @booking.destroy
     respond_to do |format|
-      format.html { redirect_to bookings_url, notice: 'Listing was successfully destroyed.' }
+      format.html { redirect_to user_bookings_path, notice: 'Listing was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +68,7 @@ def index
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:check_in, :check_out)
+      params.require(:booking).permit(:check_in, :check_out, :user_id)
     end
 
     def listing_params

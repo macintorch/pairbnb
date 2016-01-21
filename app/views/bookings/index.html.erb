@@ -1,2 +1,27 @@
-<h1>Bookings#index</h1>
-<p>Find me in app/views/bookings/index.html.erb</p>
+<p id="notice"><%= notice %></p>
+
+<h1>Bookings made by <%= current_user.email %></h1>
+<table class="table table-stripped" style="width:100%">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Check In</th>
+      <th>Check Out</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><a href="<%= user_booking_path(current_user,booking)%>"><%= booking.listing.title %></a></td>
+        <td><%= booking.listing.price %></td>
+        <td><%= booking.check_in %></td>
+        <td><%= booking.check_out %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

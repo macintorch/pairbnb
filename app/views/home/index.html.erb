@@ -22,9 +22,14 @@
             <% listing.images.each do |image| %>
               <%= image_tag(image.url, width: "100%") %>
             <% end%>
-          <% end%></td>
+          <% end%>
+        </td>
         <td><%= listing.user.email %></td>
+        <% if logged_in? %>
+        <% if current_user.id != listing.user.id%>
         <td><%= link_to 'Book!', new_listing_booking_path(listing) %></td>
+        <%end%>
+        <%end%>
       </tr>
     <% end %>
   </tbody>

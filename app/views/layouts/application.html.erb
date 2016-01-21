@@ -7,9 +7,9 @@
   <%= csrf_meta_tags %>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
+
+
 <body>
 
 <nav class="navbar navbar-default">
@@ -32,11 +32,9 @@
       <ul class="nav navbar-nav navbar-right">
       <% if signed_in? %>
        <li><button type="button" class="btn btn-default navbar-btn">Hi! <%= current_user.email %></button></li>
-       <li><a href="<%= users_path(current_user)%>"> Profile Index</a></li>
        <li><%= link_to "Profile", user_path(current_user) %></li>
-       <li><a href="<%= user_path(current_user)%>"> Your Profile</a></li>
        <li><a href="/listings"> Your Listings</a></li>
-       <li><a href="/listings"> Your Bookings</a></li>
+       <li><a href="<%= user_bookings_path(current_user)%>"> Your Bookings</a></li>
         <li><%= link_to "Sign Out", sign_out_path, method: :delete %></li>
         <% else %>
         <li><%= link_to "Sign in", sign_in_path %></li>

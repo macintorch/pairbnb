@@ -1,2 +1,37 @@
 <h1>Bookings#show</h1>
 <p>Find me in app/views/bookings/show.html.erb</p>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @booking.listing.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @booking.listing.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @booking.listing.price %>
+</p>
+
+<p>
+  <strong>Booked By:</strong>
+  <%= @booking.listing.user.email %>
+</p>
+
+<p>
+  <strong>Check In:</strong>
+<%= @booking.check_in %>
+</p>
+
+<p>
+  <strong>Check Out:</strong>
+<%= @booking.check_out %>
+</p>
+<%= link_to 'Edit', edit_listing_booking_path(@booking.listing, @booking) %> |
+<%= link_to 'Back', user_bookings_path %>  |
+<%= link_to 'Destroy', user_booking_path, method: :delete, data: { confirm: 'Are you sure?' } %>

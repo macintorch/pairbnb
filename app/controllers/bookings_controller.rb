@@ -1,10 +1,10 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
-def index
-  # byebug
-  @bookings = Booking.where(user_id: current_user.id)
-
+  def index
+  
+   @bookings = Booking.where(user_id: current_user.id)
+  
   end
   
    def show
@@ -24,7 +24,10 @@ def index
     @listing = Listing.find(params[:listing_id])
     @booking = @listing.bookings.new(booking_params) #storing listing_id into
     @booking.user_id = current_user.id #booking made by current user
-    byebug
+    #if overlap?
+    #  redirect_to listing_bookings_path, notice: 'Booking was successfully created.'
+     # else
+    
     respond_to do |format|
       if @booking.save
         format.html { redirect_to listing_bookings_path, notice: 'Booking was successfully created.'}
@@ -33,6 +36,7 @@ def index
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
+   # end
     end
   end
 

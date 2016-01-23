@@ -18,12 +18,7 @@
         <td><%= listing.title %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price %></td>
-        <td><%if listing.images? %>
-            <% listing.images.each do |image| %>
-              <%= image_tag(image.url, width: "100%") %>
-            <% end%>
-          <% end%>
-        </td>
+        <td><%= image_tag listing.images[0].url.to_s, width:"100%" if listing.images[0].url.present?%></td>
         <td><%= listing.user.email %></td>
         <% if logged_in? %>
         <% if current_user.id != listing.user.id%>

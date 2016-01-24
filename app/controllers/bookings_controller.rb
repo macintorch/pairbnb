@@ -21,6 +21,7 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @booking = current_user.bookings.new(reservation_params)
     @listing = Listing.find(params[:listing_id])
     @booking = @listing.bookings.new(booking_params) #storing listing_id into
     @booking.user_id = current_user.id #booking made by current user
@@ -32,6 +33,7 @@ class BookingsController < ApplicationController
       if @booking.save
         format.html { redirect_to listing_bookings_path, notice: 'Booking was successfully created.'}
         format.json { render :show, status: :created, location: @listing }
+        ReservationMailer.booking_email(@customer, @host, @booking_id).deliver_now #from email guide
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }

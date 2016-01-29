@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'transactions/new'
+
+  resources :passwords, controller: "clearance/passwords", only: [:create, :new]
+  resource :session, controller: "clearance/sessions", only: [:create]
+
+  resources :users, only: [:create] do
+    resource :password,
+      controller: "clearance/passwords",
+      only: [:create, :edit, :update]
+  end
+
+  get "/sign_in" => "clearance/sessions#new", as: "sign_in"
+  delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
+  get "/sign_up" => "clearance/users#new", as: "sign_up"
   resources :users do
   resources :bookings
   end
@@ -7,7 +21,9 @@ Rails.application.routes.draw do
   resources :listings do
 
   resources :bookings
-end
+  end
+
+  resources :transactions, only: [:new, :create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 #resources :users
@@ -15,6 +31,8 @@ end
    root 'home#index'
    #root 'users#new'
    get 'auth/facebook/callback' => 'session#create'
+
+   get '/confirm' => 'email_confirmations#update'
    
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

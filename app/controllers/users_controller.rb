@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < Clearance::UsersController
 	
 	def index
 		@user = current_user
@@ -6,8 +6,11 @@ class UsersController < ApplicationController
 
 	def create
     @user = User.new(user_params)
+    @user.email_confirmation_token = Clearance::Token.new
+    
 		respond_to do |format|
 	      if @user.save
+	      	UserMailer.registration_confirmation(@user).deliver_later
 	        format.html { redirect_to root_path, notice: 'Welcome <%=@user.email%> .' }
 	        format.json { render :show, status: :ok, location: @user }
 	      else

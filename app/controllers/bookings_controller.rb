@@ -21,23 +21,36 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = current_user.bookings.new(reservation_params)
+    #@booking = current_user.bookings.new(reservation_params)
+
     @listing = Listing.find(params[:listing_id])
+
     @booking = @listing.bookings.new(booking_params) #storing listing_id into
     @booking.user_id = current_user.id #booking made by current user
-    #if overlap?
-    #  redirect_to listing_bookings_path, notice: 'Booking was successfully created.'
-     # else
-    
+
     respond_to do |format|
+
+      if @listing.bookings.all.empty?
+          @listing.bookings.all.each do |other|
+          if @booking.overlaps?(other)
+            redirect_to listing_bookings_path, notice: 'Booking was successfully created.'
+          end
+        end
+      end
+
       if @booking.save
-        format.html { redirect_to listing_bookings_path, notice: 'Booking was successfully created.'}
+        format.html do
+         ReservationMailer.booking_email(current_user.email, @listing.user.email, @booking_id).deliver_now
+         redirect_to listing_bookings_path, notice: 'Booking was successfully created.'
+        end
         format.json { render :show, status: :created, location: @listing }
-        ReservationMailer.booking_email(@customer, @host, @booking_id).deliver_now #from email guide
+
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
+      # byebug
+      # ReservationMailer.booking_email(current_user.email, @listing.user.email, @booking_id).deliver_now #from email guide
    # end
     end
   end
@@ -54,14 +67,11 @@ class BookingsController < ApplicationController
       end
     end
   end
-
-  
-
 #delete /bookings/1
   def destroy
     @booking.destroy
     respond_to do |format|
-      format.html { redirect_to user_bookings_path, notice: 'Listing was successfully destroyed.' }
+      format.html { redirect_to user_bookings_path, notice: 'Your booking was successfully deleted.' }
       format.json { head :no_content }
     end
   end

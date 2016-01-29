@@ -37,6 +37,7 @@
   <strong>Days:</strong>
 <%= @booking.day %>
 </p>
+<%=link_to "Checkout", new_transaction_path(@booking.listing, @booking), class: "button" %>
 <%= link_to 'Edit', edit_listing_booking_path(@booking.listing, @booking) %> |
 <%= link_to 'Back', user_bookings_path %>  |
 <%= link_to 'Destroy', user_booking_path, method: :delete, data: { confirm: 'Are you sure?' } %>

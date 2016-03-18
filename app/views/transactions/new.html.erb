@@ -5,7 +5,7 @@
   <%= form_tag transactions_path do%>
     <p>Please enter your payment details:</p>
     <div id="dropin"></div>
-   
+   		
     <%= submit_tag "Pay #{current_user.bookings.find(params[:format]).listing.price}$", :class => "btn btn-primary" %>
   <%end%>
 </div>

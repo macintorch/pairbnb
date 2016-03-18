@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
    def confirm_email
     self.email_confirmed_at = Time.current
-    save
+    self.save
   end
 
 end

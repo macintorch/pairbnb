@@ -19,3 +19,4 @@
 # Ignore app keys
 /config/keys.yml
 /config/secrets.yml
+/config/application.yml

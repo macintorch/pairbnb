@@ -7,9 +7,7 @@ class TransactionsController < ApplicationController
       # @listing = Listing.find(params[:listing_id])
   	gon.client_token = generate_client_token
   end
-
-
-
+  
 	private
 	def generate_client_token
 	  Braintree::ClientToken.generate
